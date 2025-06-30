@@ -147,6 +147,7 @@
     width: 2em;
     height: 0.05em;
     background-color: var(--offwhite);
+    margin: 0 -1em;
 }
 
 .container-links__titulo::after {
@@ -186,6 +187,7 @@
 .container-links__link {
     color: var(--verde-destaque);
     font-size: 18px;
+    text-decoration: none;
 }
 
 .container-links__link::after {
