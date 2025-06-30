@@ -31,14 +31,19 @@ function Subtitulo(){
         <h2 className="form__texto">Boas-vindas! Faça seu login.</h2>
     )
 }
-function CampoDeDigitacao(){
+function CampoDeDigitacao({label, tipo, placeholder}){
     return(
         <div className="form__campo-digitacao">
-            <label htmlFor="email">Email ou usuário</label>
-                <input type="email" id="email" placeholder="Digite seu email ou usuário" required/>
+            <label htmlFor="email">{label}</label>
+                <input type={tipo} id="email" placeholder={placeholder} required/>
                 <label htmlFor="senha">Senha</label>
                 <input type="text" id="senha" placeholder="Digite sua senha" required/>
         </div>
+    )
+}
+function BotaoDeLogin(){
+    return(
+        <button className="form__botao" type="submit">Login</button>
     )
 }
 
@@ -50,7 +55,11 @@ function PaginaDeLogin(){
                 <form>
                     <Titulo />
                     <Subtitulo />
-                    <CampoDeDigitacao />
+                    <CampoDeDigitacao 
+                    label="Email ou usuário"
+                    tipo = "email"
+                    placeholder = "Digite seu email ou usuário"/>
+                    <BotaoDeLogin />
                 </form>
             </section>
         </div>
