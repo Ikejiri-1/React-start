@@ -16,63 +16,127 @@
 <body>
     <div id="root"></div>
 
- <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </script>
 
-<script type="text/babel">
-function Titulo(){
-    return(
-        <h1 className="form__titulo">Login</h1>
-    )
-}
-function Subtitulo(){
-    return(
-        <h2 className="form__texto">Boas-vindas! Faça seu login.</h2>
-    )
-}
-function CampoDeDigitacao({label, tipo, placeholder}){
-    return(
-        <div className="form__campo-digitacao">
-            <label htmlFor="email">{label}</label>
-                <input type={tipo} id="email" placeholder={placeholder} required/>
-        </div>
-    )
-}
-function BotaoDeLogin(){
-    return(
-        <button className="form__botao" type="submit">Login</button>
-    )
-}
+    <script type="text/babel">
+        function Titulo({ children }) {
+            return (
+                <h1 className="form__titulo">{children}</h1>
+            )
+        }
+        function Subtitulo({ children }) {
+            return (
+                <h2 className="form__texto">{children}</h2>
+            )
+        }
+        function CampoDeDigitacao({ label, tipo, placeholder, value, setValor }) {
+            return (
+                <div className="form__campo-digitacao">
+                    <label htmlFor={tipo}>{label}</label>
+                    <input type={tipo}
+                        id={tipo}
+                        value={value}
+                        placeholder={placeholder}
+                        onChange={(e) => setValor(e.target.value)}
+                        required />
+                </div>
+            )
+        }
+        function Checkbox({ children }) {
+            return (
+                <>
+                    <div className="form__campo-checkbox">
+                        <input
+                            type="checkbox"
+                            id="lembrar"
+                        />
+                        <label htmlFor="lembrar"></label>
+                    </div>
 
-function PaginaDeLogin(){
-    return(
-        <div className="container-login">
-            <img src ="./img/imagem-login.png" alt="Mulher negra de cabelo crespo mexendo no computador e logo da Code connect embaixo"/>
-            <section>
-                <form>
-                    <Titulo />
-                    <Subtitulo />
-                    <CampoDeDigitacao 
-                    label="Email ou usuário"
-                    tipo = "email"
-                    placeholder = "Digite seu email ou usuário"/>
-                    <CampoDeDigitacao 
-                    label="Senha"
-                    tipo = "senha"
-                    placeholder = "Digite sua senha"/>
-                    <BotaoDeLogin />
-                </form>
-            </section>
-        </div>
-    )
-}
+                    <p className="form__opcoes-texto">Lembrar-me</p>
+                </>
+            )
+        }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(
-            <PaginaDeLogin />     
-    )
+        function BotaoDeLogin({ tipo, children }) {
+            return (
+                <button className="form__botao" type={tipo}>{children}</button>
+            )
+        }
 
-</script>
+        function Texto({ classe, children }) {
+            return (
+                <p className={classe}>{children}</p>
+            )
+
+        }
+
+        function ItemRedesSociais({ link, nome }){
+            return(
+                    <li>
+                        <a href={link}><img src={`./img/${nome}.svg`} alt={`ícone do ${nome}`}/>{nome}</a>
+                    </li>
+                
+            )
+        }
+
+        function PaginaDeLogin() {
+            const [email, setEmail] = React.useState('')
+            const [senha, setSenha] = React.useState('')
+
+            const handleSubmit = (e) => {
+                e.preventDefault()
+            }
+
+            return (
+                <div className="container-login">
+                    <img src="./img/imagem-login.png" alt="Mulher negra de cabelo crespo mexendo no computador e logo da Code connect embaixo" />
+                    <section>
+                        <form onSubmit={handleSubmit}>
+                            <Titulo>Login</Titulo>
+                            <Subtitulo>
+                                Boas-vindas! Faça seu login.
+                            </Subtitulo>
+                            <CampoDeDigitacao
+                                label="Email ou usuário"
+                                tipo="email"
+                                placeholder="Digite seu email ou usuário"
+                                value={email}
+                                setValor={setEmail}
+                            />
+                            <CampoDeDigitacao
+                                label="Senha"
+                                tipo="password"
+                                placeholder="Digite sua senha"
+                                value={senha}
+                                setValor={setSenha}
+                            />
+                            <fieldset className="form__opcoes">
+                                <Checkbox />
+                                <p><a href="#" aria-label="Recuperar senha">Esqueci a senha</a></p>
+                            </fieldset>
+                            <BotaoDeLogin
+                                tipo="submit"
+                            >
+                                Login
+                            </BotaoDeLogin>
+                            <Texto>
+
+                            </Texto>
+                        </form>
+                    </section>
+                </div>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(
+            <PaginaDeLogin />
+        )
+
+    </script>
 </body>
 
 </html>
